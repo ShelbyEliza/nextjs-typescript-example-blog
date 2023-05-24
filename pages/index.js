@@ -5,6 +5,15 @@ import { getSortedPostsData } from "../lib/posts";
 import Link from "next/link";
 import Date from "../components/date";
 
+export async function getStaticProps() {
+  const allPostsData = getSortedPostsData();
+  return {
+    props: {
+      allPostsData,
+    },
+  };
+}
+
 export default function Home({ allPostsData }) {
   return (
     <Layout home>
@@ -12,6 +21,9 @@ export default function Home({ allPostsData }) {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
+        <h1 className="title">
+          Read <Link href="/posts/first-post">this page!</Link>
+        </h1>
         <p>
           I am a highly motivated, self-taught web developer with 3 years
           experience in both independent and team-based projects. My excellent
@@ -21,11 +33,8 @@ export default function Home({ allPostsData }) {
           understanding of JavaScript, modern CSS, React, HTML, and Node. I also
           have some experience with jQuery and MongoDB.
         </p>
-        <p>
-          (This is a sample website - you’ll be building a site like this in{" "}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
-        </p>
       </section>
+
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
@@ -42,13 +51,4 @@ export default function Home({ allPostsData }) {
       </section>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
 }
